@@ -301,8 +301,11 @@ async function analyzeCopy() {
   var prompt = 'Nonprofit fundraising expert. Analyze this donor appeal email. Respond ONLY with valid JSON, no markdown or explanation.\nRole:' + roleLabel + (campaign ? ' Campaign:' + campaign : '') + '\nEMAIL:' + emailSnippet + '\nJSON:{"scores":{"donorCentered":0,"emotionalAppeal":0,"clarityOfAsk":0,"urgency":0,"storytelling":0,"callToAction":0},"overall":0,"issues":[{"category":"x","title":"x","explanation":"x","benchmark":"x"}],"rewrites":[{"section":"x","weakness":"x","before":"x","after":"x"}]}\nScore 0-100. Issues:3-5 problems. Rewrites:2-3 weakest sections before/after.';
 
   try {
-    var aiUrl = scriptUrl + '?' + new URLSearchParams({ action: 'ai_suggest', apiKey: apiKey, prompt: prompt }).toString();
-    var response = await fetch(aiUrl);
+    var response = await fetch(scriptUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'ai_suggest', apiKey: apiKey, prompt: prompt })
+    });
     var data = await response.json();
     if (data.error) throw new Error(data.error);
     var text = data.suggestion || '';
