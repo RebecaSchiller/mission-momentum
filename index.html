@@ -8,574 +8,156 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ocean:   #002366;
-      --horizon: #3A6DB5;
-      --mist:    #D6E4F5;
-      --fog:     #F0F4F9;
-      --ink:     #1A1F2E;
-      --slate:   #4A5568;
-      --stone:   #8A9BB0;
-      --border:  rgba(58,109,181,0.15);
-      --border-mid: rgba(58,109,181,0.35);
-      --radius:  10px;
-      --radius-lg: 14px;
-      --shadow:  0 1px 4px rgba(0,35,102,0.08);
+      --ocean: #002366; --ocean-mid: #002d7a;
+      --horizon: #3A6DB5; --horizon-mid: #4d7dc0;
+      --mist: #D6E4F5; --fog: #F0F4F9;
+      --ink: #1A1F2E; --slate: #4A5568; --stone: #8A9BB0;
+      --white: #FFFFFF;
     }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Josefin Sans', sans-serif; background: var(--fog); color: var(--ink); font-size: 18px; line-height: 1.5; margin: 0; }
 
-    body { font-family: 'Josefin Sans', sans-serif; background: var(--fog); color: var(--ink); min-height: 100vh; font-size: 15px; line-height: 1.6; }
+    nav { background: var(--ocean); border-bottom: 2px solid var(--horizon); padding: 0 3rem; height: 72px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { display: flex; align-items: center; gap: 12px; color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; }
+    .nav-brand .brand-sub { font-size: 10px; font-weight: 400; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; display: block; line-height: 1; margin-top: 3px; }
+    .nav-link { color: var(--mist); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+    .nav-link:hover { color: var(--white); }
 
-    /* TOPBAR */
-    .topbar { background: var(--ocean); padding: 0 2rem; height: 64px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--horizon); }
-    .topbar-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .brand-text { color: #fff; }
-    .brand-name { font-size: 15px; font-weight: 700; letter-spacing: 0.02em; display: block; }
-    .brand-sub { font-size: 10px; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; display: block; }
-    .topbar-link { font-size: 12px; color: var(--mist); text-decoration: none; letter-spacing: 0.05em; }
-    .topbar-link:hover { color: #fff; }
+    .page-header { background: var(--ocean); padding: 3rem 3rem 2.5rem; text-align: center; }
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem; opacity: 0.7; }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1.1rem; color: rgba(214,228,245,0.8); max-width: 620px; margin: 0 auto; }
 
-    /* HERO */
-    .hero { background: var(--ocean); padding: 3rem 2rem 2.5rem; text-align: center; }
-    .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); margin-bottom: 12px; }
-    .hero-title { font-size: 36px; font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: 0.01em; line-height: 1.2; }
-    .hero-desc { font-size: 15px; color: rgba(214,228,245,0.8); max-width: 580px; margin: 0 auto 2rem; line-height: 1.7; }
+    main { max-width: 900px; margin: 0 auto; padding: 2.5rem 3rem 5rem; }
 
-    /* TABS */
-    .tabs { background: rgba(0,0,0,0.2); display: flex; justify-content: center; gap: 0; padding: 0 2rem; border-top: 1px solid rgba(255,255,255,0.08); }
-    .tab { font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.45); padding: 12px 20px; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.15s; white-space: nowrap; }
-    .tab:hover { color: rgba(255,255,255,0.75); }
-    .tab.active { color: var(--mist); border-bottom-color: var(--horizon); }
-    .tab.disabled { opacity: 0.35; cursor: default; }
-    .tab.disabled:hover { color: rgba(255,255,255,0.45); }
+    .card { background: var(--white); border-radius: 8px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; border: 1px solid var(--mist); }
+    .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--horizon); margin-bottom: 1rem; }
+    .field-hint { font-size: 13px; color: var(--stone); margin-top: 0.5rem; font-weight: 400; }
+    .field-hint a { color: var(--horizon); }
+    input[type="text"], input[type="password"] { font-family: 'Josefin Sans', sans-serif; font-size: 15px; width: 100%; padding: 12px 16px; border: 1.5px solid var(--mist); border-radius: 4px; color: var(--ink); background: var(--fog); outline: none; transition: border-color 0.15s; }
+    input[type="text"]:focus, input[type="password"]:focus { border-color: var(--horizon); background: var(--white); }
+    .key-status { font-size: 13px; font-weight: 600; margin-top: 0.75rem; display: none; align-items: center; gap: 6px; }
+    .key-status.show { display: flex; }
+    .key-status.saved { color: #3ab87a; }
 
-    /* MAIN */
-    .main { max-width: 860px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 700px) { .tools-grid { grid-template-columns: 1fr; } }
+    .tool-card { background: var(--white); border: 1px solid var(--mist); border-radius: 8px; padding: 1.75rem; text-decoration: none; color: var(--ink); display: block; transition: border-color 0.15s, transform 0.15s; }
+    .tool-card:hover { border-color: var(--horizon); transform: translateY(-2px); }
+    .tool-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--horizon); margin-bottom: 0.6rem; }
+    .tool-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--ocean); margin-bottom: 0.5rem; }
+    .tool-card p { font-size: 0.9rem; color: var(--slate); line-height: 1.5; }
+    .tool-card.full { grid-column: 1 / -1; }
 
-    /* TOOL PANEL */
-    .tool-panel { display: none; }
-    .tool-panel.active { display: block; }
+    footer { background: var(--ink); padding: 2rem 3rem; text-align: center; margin-top: 4rem; }
+    .footer-sub { font-size: 13px; color: var(--stone); }
+    .footer-sub a { color: var(--mist); text-decoration: none; }
+    .footer-sub a:hover { text-decoration: underline; }
 
-    /* COMING SOON */
-    .coming-soon { text-align: center; padding: 4rem 2rem; color: var(--stone); }
-    .coming-soon-icon { font-size: 48px; margin-bottom: 12px; }
-    .coming-soon h3 { font-size: 18px; font-weight: 700; color: var(--slate); margin-bottom: 8px; }
-    .coming-soon p { font-size: 14px; }
-
-    /* CARD */
-    .card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
-    .card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--horizon); margin-bottom: 12px; }
-
-    /* FORM */
-    .form-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-    .form-row > * { flex: 1; min-width: 200px; }
-    .input-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--horizon); margin-bottom: 5px; display: block; }
-    select, input, textarea { width: 100%; background: var(--fog); border: 0.5px solid var(--border-mid); border-radius: var(--radius); padding: 9px 12px; font-size: 14px; font-family: inherit; color: var(--ink); outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
-    select:focus, input:focus, textarea:focus { border-color: var(--horizon); box-shadow: 0 0 0 3px rgba(58,109,181,0.12); }
-    textarea { resize: vertical; min-height: 200px; line-height: 1.6; }
-
-    /* BUTTON */
-    .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--ocean); border: none; border-radius: var(--radius); padding: 11px 24px; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; font-family: inherit; color: #fff; cursor: pointer; transition: background 0.15s; }
-    .btn:hover { background: #003d99; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-outline { background: transparent; border: 0.5px solid var(--border-mid); color: var(--slate); }
-    .btn-outline:hover { background: var(--mist); color: var(--ink); }
-    .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-
-    /* SPINNER */
-    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* RESULTS */
-    .results { display: none; }
-    .results.show { display: block; }
-
-    /* SCORE GRID */
-    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.25rem; }
-    @media (max-width: 600px) { .score-grid { grid-template-columns: 1fr 1fr; } }
-    .score-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px; text-align: center; box-shadow: var(--shadow); }
-    .score-num { font-size: 32px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
-    .score-label { font-size: 11px; font-weight: 600; color: var(--slate); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
-    .score-bar { height: 4px; background: var(--mist); border-radius: 99px; overflow: hidden; }
-    .score-fill { height: 100%; border-radius: 99px; transition: width 0.6s; }
-    .score-high { color: #065f46; }
-    .score-mid { color: #92400e; }
-    .score-low { color: #991b1b; }
-    .fill-high { background: #10b981; }
-    .fill-mid { background: #f59e0b; }
-    .fill-low { background: #ef4444; }
-
-    /* OVERALL SCORE */
-    .overall-score { background: var(--ocean); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1.5rem; color: #fff; }
-    .overall-num { font-size: 56px; font-weight: 700; line-height: 1; color: #fff; flex-shrink: 0; }
-    .overall-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); margin-bottom: 4px; }
-    .overall-verdict { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .overall-note { font-size: 13px; color: rgba(214,228,245,0.8); line-height: 1.6; }
-
-    /* ISSUES */
-    .issue { background: #fff; border: 0.5px solid var(--border); border-left: 3px solid #f97316; border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; }
-    .issue-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-    .issue-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #92400e; background: #fef3c7; border-radius: 4px; padding: 2px 8px; }
-    .issue-title { font-size: 13px; font-weight: 700; color: var(--ink); }
-    .issue-body { font-size: 13px; color: var(--slate); line-height: 1.65; }
-    .issue-benchmark { font-size: 12px; color: var(--stone); margin-top: 6px; font-style: italic; }
-
-    /* REWRITES */
-    .rewrite { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 1.25rem; overflow: hidden; }
-    .rewrite-header { background: var(--ocean); padding: 12px 16px; }
-    .rewrite-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mist); margin-bottom: 2px; }
-    .rewrite-title { font-size: 14px; font-weight: 700; color: #fff; }
-    .rewrite-cols { display: grid; grid-template-columns: 1fr 1fr; }
-    @media (max-width: 600px) { .rewrite-cols { grid-template-columns: 1fr; } }
-    .rewrite-col { padding: 16px; }
-    .rewrite-col:first-child { border-right: 0.5px solid var(--border); }
-    .rewrite-col-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
-    .rewrite-col-label.before { color: #991b1b; }
-    .rewrite-col-label.after { color: #065f46; }
-    .rewrite-text { font-size: 13px; color: var(--slate); line-height: 1.7; white-space: pre-wrap; }
-
-    /* PRINT REPORT */
-    .report-bar { background: var(--fog); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 10px; }
-    .report-bar-text { font-size: 13px; color: var(--slate); }
-    .report-bar-text strong { color: var(--ocean); }
-
-    /* PRINT STYLES */
-    @media print {
-      .topbar, .hero, .tabs, .input-section, .btn-row, .report-bar { display: none !important; }
-      .results { display: block !important; }
-      body { background: #fff; }
-      .main { padding: 0; max-width: 100%; }
-      .print-header { display: block !important; }
+    @media (max-width: 700px) {
+      nav { padding: 0 1.25rem; }
+      .page-header { padding: 2rem 1.25rem; }
+      main { padding: 1.5rem 1.25rem 4rem; }
+      .card { padding: 1.5rem; }
     }
-
-    .print-header { display: none; padding: 0 0 1.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--ocean); }
-    .print-header-logo { font-size: 13px; font-weight: 700; color: var(--ocean); letter-spacing: 0.02em; margin-bottom: 4px; }
-    .print-header-sub { font-size: 11px; color: var(--stone); }
-    .print-header-title { font-size: 22px; font-weight: 700; color: var(--ocean); margin: 12px 0 4px; }
-    .print-header-meta { font-size: 12px; color: var(--slate); }
-
-    /* ERROR */
-    .error-msg { background: #fee2e2; border: 0.5px solid #fca5a5; border-radius: var(--radius); padding: 12px 16px; font-size: 13px; color: #991b1b; margin-bottom: 1rem; display: none; }
-    .error-msg.show { display: block; }
-
-    /* FOOTER */
-    .site-footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--stone); }
-    .site-footer a { color: var(--horizon); text-decoration: none; }
   </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <a class="topbar-brand" href="https://plainspeakingcomms.com" target="_blank">
-    <div class="brand-text">
-      <span class="brand-name">Plain Speaking Communications</span>
-      <span class="brand-sub">plainspeakingcomms.com</span>
+<nav>
+  <a class="nav-brand" href="index.html">
+    <svg width="52" height="52" viewBox="0 0 126 126" fill="none">
+      <path d="M 18 80 A 45 45 0 0 1 108 80" stroke="rgba(214,228,245,0.12)" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M 18 80 A 45 45 0 0 1 80 35" stroke="#3A6DB5" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M 80 35 A 45 45 0 0 1 108 80" stroke="#D6E4F5" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <line x1="18" y1="80" x2="8" y2="80" stroke="rgba(214,228,245,0.35)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="34" y1="34" x2="27" y2="27" stroke="rgba(214,228,245,0.35)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="63" y1="18" x2="63" y2="8" stroke="rgba(214,228,245,0.35)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="92" y1="34" x2="99" y2="27" stroke="rgba(214,228,245,0.35)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="108" y1="80" x2="118" y2="80" stroke="rgba(214,228,245,0.35)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="63" y1="63" x2="98" y2="38" stroke="#4A5568" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="63" cy="63" r="10" fill="#4A5568"/>
+      <circle cx="63" cy="63" r="5" fill="#002366"/>
+    </svg>
+    <div>
+      Mission Momentum™
+      <span class="brand-sub">Stronger copy. Deeper impact.</span>
     </div>
   </a>
-  <a class="topbar-link" href="https://plainspeakingcomms.com" target="_blank">← Back to PSC</a>
+  <a class="nav-link" href="https://plainspeakingcomms.com" target="_blank">Back to PSC</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Free Tools for Nonprofit Communicators</div>
+  <h1>Mission Momentum</h1>
+  <p>Paste your copy. Get scored feedback, flagged issues with nonprofit benchmarks, and targeted rewrites for your weakest sections. No login required.</p>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-eyebrow">Free Tools for Nonprofit Communicators</div>
-  <h1 class="hero-title">Mission Momentum</h1>
-  <p class="hero-desc">Paste your copy. Get scored feedback, flagged issues with nonprofit benchmarks, and targeted rewrites for your weakest sections. No login required.</p>
+<main>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab('donor-appeal')">Donor Appeal Email</div>
-    <div class="tab disabled" title="Coming soon">Thank-You Letter</div>
-    <div class="tab disabled" title="Coming soon">Lapsed Donor</div>
-    <div class="tab disabled" title="Coming soon">Positioning</div>
-    <div class="tab disabled" title="Coming soon">Newsletter</div>
-  </div>
-</div>
-
-<!-- MAIN -->
-<div class="main">
-
-  <!-- DONOR APPEAL EMAIL TOOL -->
-  <div class="tool-panel active" id="panel-donor-appeal">
-
-    <!-- INPUT -->
-    <div class="input-section">
-      <div class="card">
-        <div class="card-label">Setup</div>
-        <div style="margin-bottom:12px;">
-          <label class="input-label">Anthropic API Key <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone)">(required — powers the AI analysis)</span></label>
-          <input id="apiKey" type="password" placeholder="sk-ant-..." />
-          <div style="font-size:12px;color:var(--stone);margin-top:5px;">🔒 Stored only in your browser. Never sent anywhere except Anthropic. <a href="https://console.anthropic.com" target="_blank" style="color:var(--horizon);">Get a key →</a></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">About This Appeal</div>
-        <div class="form-row">
-          <div>
-            <label class="input-label">Your Role</label>
-            <select id="role">
-              <option value="marketing">Marketing / Communications Staff</option>
-              <option value="ed">Executive Director</option>
-              <option value="consultant">Fundraising Consultant</option>
-            </select>
-          </div>
-          <div>
-            <label class="input-label">Campaign or Appeal Name <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone)">(optional)</span></label>
-            <input id="campaign" placeholder="e.g. Year-End Appeal 2026" />
-          </div>
-        </div>
-        <div style="margin-bottom:12px;">
-          <label class="input-label">Campaign Context <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone)">(optional — helps the AI give more specific feedback)</span></label>
-          <input id="context" placeholder="e.g. This is our year-end appeal targeting mid-level donors who gave $500–$2,500 last year." />
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-label">Your Donor Appeal Email</div>
-        <textarea id="emailCopy" placeholder="Paste your donor appeal email here — subject line, body copy, and call to action. The more complete your copy, the more specific the feedback."></textarea>
-      </div>
-
-      <div class="error-msg" id="errorMsg"></div>
-
-      <div class="btn-row">
-        <button class="btn" id="analyzeBtn" onclick="analyzeCopy()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-          Analyze My Email
-        </button>
-        <button class="btn btn-outline" onclick="clearAll()">Clear</button>
-      </div>
-    </div>
-
-    <!-- RESULTS -->
-    <div class="results" id="results">
-
-      <!-- PRINT HEADER -->
-      <div class="print-header" id="printHeader">
-        <div class="print-header-logo">Plain Speaking Communications</div>
-        <div class="print-header-sub">plainspeakingcomms.com · rebeca@plainspeakingcomms.com</div>
-        <div class="print-header-title">Donor Appeal Email Diagnostic</div>
-        <div class="print-header-meta" id="printMeta"></div>
-      </div>
-
-      <!-- REPORT BAR -->
-      <div class="report-bar">
-        <div class="report-bar-text">Your report is ready. <strong>Print or save as PDF</strong> to share with your team.</div>
-        <div style="display:flex;gap:8px;">
-          <button class="btn" onclick="window.print()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            Print / Save PDF
-          </button>
-          <button class="btn btn-outline" onclick="resetForm()">Run another</button>
-        </div>
-      </div>
-
-      <!-- OVERALL SCORE -->
-      <div class="overall-score" id="overallScore"></div>
-
-      <!-- CATEGORY SCORES -->
-      <div class="card">
-        <div class="card-label">Scores by Category</div>
-        <div class="score-grid" id="scoreGrid"></div>
-      </div>
-
-      <!-- FLAGGED ISSUES -->
-      <div class="card" id="issuesCard">
-        <div class="card-label">Flagged Issues</div>
-        <div id="issuesList"></div>
-      </div>
-
-      <!-- TARGETED REWRITES -->
-      <div id="rewritesList"></div>
-
-      <!-- PSC FOOTER -->
-      <div class="card" style="text-align:center;padding:1.25rem;">
-        <div style="font-size:12px;color:var(--stone);margin-bottom:6px;">Generated by Mission Momentum</div>
-        <div style="font-size:13px;font-weight:700;color:var(--ocean);margin-bottom:4px;">Plain Speaking Communications</div>
-        <div style="font-size:12px;color:var(--slate);">Need help implementing this feedback? <a href="mailto:rebeca@plainspeakingcomms.com" style="color:var(--horizon);">rebeca@plainspeakingcomms.com</a></div>
-      </div>
-
-    </div>
+  <div class="card">
+    <div class="card-label">Setup</div>
+    <label class="field-hint" style="display:block;margin-bottom:6px;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:0.06em;color:var(--ocean);">Anthropic API Key <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone);">(required — powers all five diagnostics below)</span></label>
+    <input id="apiKey" type="password" placeholder="sk-ant-..." />
+    <div class="field-hint">🔒 Stored only in your browser. Never sent anywhere except Anthropic. <a href="https://console.anthropic.com" target="_blank">Get a key →</a></div>
+    <div class="key-status saved" id="keyStatus">✓ Key saved — you're ready to use any diagnostic below</div>
   </div>
 
-  <!-- OTHER PANELS (coming soon) -->
-  <div class="tool-panel" id="panel-thankyou">
-    <div class="coming-soon">
-      <div class="coming-soon-icon">✉️</div>
-      <h3>Thank-You Letter Diagnostic</h3>
-      <p>Coming soon. Check back shortly.</p>
-    </div>
+  <div class="tools-grid">
+    <a class="tool-card" href="donor-appeal.html">
+      <div class="tool-number">Diagnostic 1 of 5</div>
+      <h3>Donor Appeal Email</h3>
+      <p>Score your donor appeal across six categories, with flagged issues and rewrites for your two weakest sections.</p>
+    </a>
+    <a class="tool-card" href="thank-you.html">
+      <div class="tool-number">Diagnostic 2 of 5</div>
+      <h3>Thank-You Letter</h3>
+      <p>Make sure your thank-you letters make donors feel seen and connected to real impact, not just thanked.</p>
+    </a>
+    <a class="tool-card" href="lapsed-donor.html">
+      <div class="tool-number">Diagnostic 3 of 5</div>
+      <h3>Lapsed Donor Re-Engagement</h3>
+      <p>Diagnose your win-back email or letter and get targeted rewrites to bring lapsed donors back.</p>
+    </a>
+    <a class="tool-card" href="positioning.html">
+      <div class="tool-number">Diagnostic 4 of 5</div>
+      <h3>Positioning &amp; Messaging</h3>
+      <p>Evaluate your about page, mission statement, elevator pitch, or homepage headline.</p>
+    </a>
+    <a class="tool-card full" href="newsletter.html">
+      <div class="tool-number">Diagnostic 5 of 5</div>
+      <h3>Newsletter &amp; Impact Report</h3>
+      <p>Check whether your newsletter or impact report leads with stories and outcomes, or gets buried in activity and jargon.</p>
+    </a>
   </div>
 
-  <div class="tool-panel" id="panel-lapsed">
-    <div class="coming-soon">
-      <div class="coming-soon-icon">🔄</div>
-      <h3>Lapsed Donor Re-Engagement Diagnostic</h3>
-      <p>Coming soon. Check back shortly.</p>
-    </div>
-  </div>
+</main>
 
-  <div class="tool-panel" id="panel-positioning">
-    <div class="coming-soon">
-      <div class="coming-soon-icon">🎯</div>
-      <h3>Positioning & Messaging Diagnostic</h3>
-      <p>Coming soon. Check back shortly.</p>
-    </div>
-  </div>
-
-  <div class="tool-panel" id="panel-newsletter">
-    <div class="coming-soon">
-      <div class="coming-soon-icon">📰</div>
-      <h3>Newsletter & Impact Report Diagnostic</h3>
-      <p>Coming soon. Check back shortly.</p>
-    </div>
-  </div>
-
-</div>
-
-<div class="site-footer">
-  Built by <a href="https://plainspeakingcomms.com" target="_blank">Plain Speaking Communications</a> · Free for nonprofits · <a href="mailto:rebeca@plainspeakingcomms.com">rebeca@plainspeakingcomms.com</a>
-</div>
+<footer>
+  <div class="footer-sub">Built by <a href="https://plainspeakingcomms.com" target="_blank">Plain Speaking Communications</a> &nbsp;·&nbsp; AI powered by <a href="https://anthropic.com" target="_blank">Claude</a> &nbsp;·&nbsp; Free to use</div>
+</footer>
 
 <script>
-const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
+  const KEY = 'mm_api_key';
 
-// Restore saved API key
-window.addEventListener('load', function() {
-  const saved = localStorage.getItem('psc_diagnostic_key');
-  if (saved) document.getElementById('apiKey').value = saved;
-});
-
-function switchTab(id) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  document.getElementById('panel-' + id).classList.add('active');
-}
-
-function showError(msg) {
-  const el = document.getElementById('errorMsg');
-  el.textContent = msg;
-  el.classList.add('show');
-}
-
-function hideError() {
-  document.getElementById('errorMsg').classList.remove('show');
-}
-
-function clearAll() {
-  document.getElementById('emailCopy').value = '';
-  document.getElementById('campaign').value = '';
-  document.getElementById('context').value = '';
-  document.getElementById('results').classList.remove('show');
-  hideError();
-}
-
-function resetForm() {
-  document.getElementById('results').classList.remove('show');
-  document.querySelector('.input-section').style.display = 'block';
-  window.scrollTo(0, 0);
-}
-
-function scoreClass(n) {
-  if (n >= 75) return 'score-high';
-  if (n >= 50) return 'score-mid';
-  return 'score-low';
-}
-
-function fillClass(n) {
-  if (n >= 75) return 'fill-high';
-  if (n >= 50) return 'fill-mid';
-  return 'fill-low';
-}
-
-function verdictText(score) {
-  if (score >= 80) return 'Strong appeal — minor refinements needed.';
-  if (score >= 65) return 'Solid foundation — clear opportunities to strengthen.';
-  if (score >= 50) return 'Developing — several key areas need attention.';
-  return 'Significant gaps — this email needs substantial revision.';
-}
-
-async function analyzeCopy() {
-  const copy = document.getElementById('emailCopy').value.trim();
-  if (!copy || copy.length < 50) {
-    showError('Please paste your donor appeal email before analyzing.');
-    return;
-  }
-
-  hideError();
-  const btn = document.getElementById('analyzeBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span> Analyzing...';
-
-  const role = document.getElementById('role').value;
-  const campaign = document.getElementById('campaign').value.trim();
-  const context = document.getElementById('context').value.trim();
-
-  const roleLabel = { marketing: 'Marketing/Communications Staff', ed: 'Executive Director', consultant: 'Fundraising Consultant' }[role];
-  const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-  const prompt = `You are a senior nonprofit fundraising communications expert with 20+ years of experience. You are reviewing a donor appeal email for a nonprofit organization.
-
-USER ROLE: ${roleLabel}
-${campaign ? 'CAMPAIGN: ' + campaign : ''}
-${context ? 'CONTEXT: ' + context : ''}
-
-DONOR APPEAL EMAIL TO ANALYZE:
----
-${copy}
----
-
-Analyze this donor appeal email and respond ONLY with a valid JSON object in this exact structure. No markdown, no explanation, just the JSON:
-
-{
-  "scores": {
-    "donorCentered": <0-100>,
-    "emotionalAppeal": <0-100>,
-    "clarityOfAsk": <0-100>,
-    "urgency": <0-100>,
-    "storytelling": <0-100>,
-    "callToAction": <0-100>
-  },
-  "overall": <0-100>,
-  "issues": [
-    {
-      "category": "<category name>",
-      "title": "<specific issue title>",
-      "explanation": "<2-3 sentences explaining the problem and why it matters for donor conversion>",
-      "benchmark": "<what strong nonprofit appeals typically do in this area>"
+  window.addEventListener('load', function() {
+    const saved = localStorage.getItem(KEY);
+    if (saved) {
+      document.getElementById('apiKey').value = saved;
+      document.getElementById('keyStatus').classList.add('show');
     }
-  ],
-  "rewrites": [
-    {
-      "section": "<name of section being rewritten>",
-      "weakness": "<one sentence on why this section underperforms>",
-      "before": "<exact text from their email that is being rewritten — quote it directly>",
-      "after": "<your improved rewrite that maintains their voice but fixes the weakness>"
+  });
+
+  document.getElementById('apiKey').addEventListener('input', function() {
+    const val = this.value.trim();
+    const status = document.getElementById('keyStatus');
+    if (val.startsWith('sk-ant-')) {
+      localStorage.setItem(KEY, val);
+      status.classList.add('show');
+    } else {
+      status.classList.remove('show');
     }
-  ]
-}
-
-SCORING GUIDE:
-- donorCentered: Does it focus on the donor's impact, not the org's needs? Uses "you" not "we"?
-- emotionalAppeal: Does it connect emotionally through story, stakes, and human impact?
-- clarityOfAsk: Is the specific ask (amount, deadline, what it funds) crystal clear?
-- urgency: Is there a genuine, credible reason to give NOW?
-- storytelling: Does it open with or include a specific person/moment/story?
-- callToAction: Is the CTA prominent, specific, and repeated?
-
-ISSUES: Identify 3-5 specific, actionable issues. Be direct. Reference specific lines when possible.
-
-REWRITES: Provide rewrites for the 2-3 WEAKEST sections only. Each rewrite should quote the actual weak text and provide a substantially improved version that maintains the organization's voice.`;
-
-  try {
-    const apiKey = document.getElementById('apiKey').value.trim();
-    if (!apiKey || !apiKey.startsWith('sk-ant-')) {
-      showError('Please enter your Anthropic API key to run the analysis.');
-      btn.disabled = false;
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Analyze My Email';
-      return;
-    }
-
-    // Save key to localStorage
-    localStorage.setItem('psc_diagnostic_key', apiKey);
-
-    const response = await fetch(ANTHROPIC_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 3000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-    const text = data.content?.[0]?.text || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    const result = JSON.parse(clean);
-
-    renderResults(result, campaign, today, roleLabel);
-
-  } catch(e) {
-    showError('Something went wrong analyzing your copy. Please try again. (' + e.message + ')');
-  }
-
-  btn.disabled = false;
-  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg> Analyze My Email';
-}
-
-function renderResults(result, campaign, today, roleLabel) {
-  const scores = result.scores;
-  const overall = result.overall;
-
-  // Print meta
-  document.getElementById('printMeta').textContent =
-    (campaign ? campaign + ' · ' : '') + roleLabel + ' · ' + today;
-
-  // Overall score
-  const oc = document.getElementById('overallScore');
-  oc.innerHTML = `
-    <div class="overall-num">${overall}</div>
-    <div>
-      <div class="overall-label">Overall Score</div>
-      <div class="overall-verdict">${verdictText(overall)}</div>
-      <div class="overall-note">${campaign ? campaign + ' · ' : ''}${roleLabel} · ${today}</div>
-    </div>`;
-
-  // Category scores
-  const labels = {
-    donorCentered: 'Donor-Centered',
-    emotionalAppeal: 'Emotional Appeal',
-    clarityOfAsk: 'Clarity of Ask',
-    urgency: 'Urgency',
-    storytelling: 'Storytelling',
-    callToAction: 'Call to Action'
-  };
-
-  const grid = document.getElementById('scoreGrid');
-  grid.innerHTML = Object.entries(scores).map(([key, val]) => `
-    <div class="score-card">
-      <div class="score-num ${scoreClass(val)}">${val}</div>
-      <div class="score-label">${labels[key]}</div>
-      <div class="score-bar"><div class="score-fill ${fillClass(val)}" style="width:${val}%"></div></div>
-    </div>`).join('');
-
-  // Issues
-  const issuesList = document.getElementById('issuesList');
-  issuesList.innerHTML = result.issues.map(issue => `
-    <div class="issue">
-      <div class="issue-header">
-        <span class="issue-tag">${issue.category}</span>
-        <span class="issue-title">${issue.title}</span>
-      </div>
-      <div class="issue-body">${issue.explanation}</div>
-      <div class="issue-benchmark">Nonprofit benchmark: ${issue.benchmark}</div>
-    </div>`).join('');
-
-  // Rewrites
-  const rewritesList = document.getElementById('rewritesList');
-  rewritesList.innerHTML = result.rewrites.map((rw, i) => `
-    <div class="rewrite">
-      <div class="rewrite-header">
-        <div class="rewrite-label">Targeted Rewrite ${i + 1} of ${result.rewrites.length}</div>
-        <div class="rewrite-title">${rw.section} — ${rw.weakness}</div>
-      </div>
-      <div class="rewrite-cols">
-        <div class="rewrite-col">
-          <div class="rewrite-col-label before">Before</div>
-          <div class="rewrite-text">${rw.before}</div>
-        </div>
-        <div class="rewrite-col">
-          <div class="rewrite-col-label after">After</div>
-          <div class="rewrite-text">${rw.after}</div>
-        </div>
-      </div>
-    </div>`).join('');
-
-  // Show results, hide input
-  document.querySelector('.input-section').style.display = 'none';
-  document.getElementById('results').classList.add('show');
-  window.scrollTo(0, 0);
-}
+  });
 </script>
 
 </body>
