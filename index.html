@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mission Momentum · Plain Speaking Communications</title>
+  <title>Mission Momentum: Stronger copy. Deeper impact.</title>
+  <meta name="description" content="Mission Momentum is a free suite of AI-powered diagnostics for nonprofit communicators. Paste your copy, get scored feedback and targeted rewrites. No account required." />
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,50 +16,84 @@
       --white: #FFFFFF;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Josefin Sans', sans-serif; background: var(--fog); color: var(--ink); font-size: 18px; line-height: 1.5; margin: 0; }
+    body { font-family: 'Josefin Sans', sans-serif; background: var(--ocean); color: var(--ink); font-size: 18px; line-height: 1.5; margin: 0; }
 
     nav { background: var(--ocean); border-bottom: 2px solid var(--horizon); padding: 0 3rem; height: 72px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .nav-brand { display: flex; align-items: center; gap: 12px; color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; }
     .nav-brand .brand-sub { font-size: 10px; font-weight: 400; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; display: block; line-height: 1; margin-top: 3px; }
-    .nav-link { color: var(--mist); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
-    .nav-link:hover { color: var(--white); }
+    .nav-cta { background: var(--horizon); color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 13px; font-family: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .nav-cta:hover { background: var(--horizon-mid); }
 
-    .page-header { background: var(--ocean); padding: 3rem 3rem 2.5rem; text-align: center; }
-    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem; opacity: 0.7; }
-    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
-    .page-header p { font-size: 1.1rem; color: rgba(214,228,245,0.8); max-width: 620px; margin: 0 auto; }
+    .hero { background: var(--ocean); padding: 7rem 3rem 6rem; text-align: center; }
+    .hero-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); background: rgba(214,228,245,0.12); border: 1px solid rgba(214,228,245,0.25); border-radius: 99px; padding: 6px 18px; margin-bottom: 2rem; }
+    .hero h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 1rem; color: #fff; max-width: 780px; margin-left: auto; margin-right: auto; }
+    .hero h1 em { font-style: normal; color: var(--mist); }
+    .hero-tagline { font-size: 1.4rem; color: var(--mist); font-style: italic; margin-bottom: 1.5rem; letter-spacing: 0.04em; }
+    .hero-sub { font-size: 1.2rem; color: rgba(214,228,245,0.85); max-width: 580px; margin: 0 auto 3rem; line-height: 1.5; }
+    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-launch { background: var(--horizon); color: #fff; border: none; border-radius: 6px; padding: 16px 36px; font-size: 14px; font-family: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; }
+    .btn-launch:hover { background: var(--horizon-mid); }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 16px 30px; font-size: 14px; font-family: inherit; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
 
-    main { max-width: 900px; margin: 0 auto; padding: 2.5rem 3rem 5rem; }
+    .frame-ocean { background: var(--ocean); padding: 0 10rem; }
+    .frame-fog   { background: var(--fog);   padding: 0 10rem; }
 
-    .card { background: var(--white); border-radius: 8px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; border: 1px solid var(--mist); }
-    .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--horizon); margin-bottom: 1rem; }
-    .field-hint { font-size: 13px; color: var(--stone); margin-top: 0.5rem; font-weight: 400; }
-    .field-hint a { color: var(--horizon); }
-    input[type="text"], input[type="password"] { font-family: 'Josefin Sans', sans-serif; font-size: 15px; width: 100%; padding: 12px 16px; border: 1.5px solid var(--mist); border-radius: 4px; color: var(--ink); background: var(--fog); outline: none; transition: border-color 0.15s; }
-    input[type="text"]:focus, input[type="password"]:focus { border-color: var(--horizon); background: var(--white); }
-    .key-status { font-size: 13px; font-weight: 600; margin-top: 0.75rem; display: none; align-items: center; gap: 6px; }
-    .key-status.show { display: flex; }
-    .key-status.saved { color: #3ab87a; }
+    .box-white  { background: var(--white); padding: 5rem 4rem; }
+    .box-ocean  { background: var(--ocean); padding: 5rem 4rem; }
 
-    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    @media (max-width: 700px) { .tools-grid { grid-template-columns: 1fr; } }
-    .tool-card { background: var(--white); border: 1px solid var(--mist); border-radius: 8px; padding: 1.75rem; text-decoration: none; color: var(--ink); display: block; transition: border-color 0.15s, transform 0.15s; }
-    .tool-card:hover { border-color: var(--horizon); transform: translateY(-2px); }
-    .tool-number { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--horizon); margin-bottom: 0.6rem; }
-    .tool-card h3 { font-size: 1.15rem; font-weight: 700; color: var(--ocean); margin-bottom: 0.5rem; }
-    .tool-card p { font-size: 0.9rem; color: var(--slate); line-height: 1.5; }
-    .tool-card.full { grid-column: 1 / -1; }
+    .block-label-dark  { font-size: 18px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--horizon); margin-bottom: 1rem; text-align: center; }
+    .block-label-light { font-size: 18px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mist);    margin-bottom: 1rem; text-align: center; }
+    .block-title-dark  { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: var(--ocean); line-height: 1.15; margin-bottom: 1.5rem; text-align: center; }
+    .block-title-light { font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 700; color: #fff;          line-height: 1.15; margin-bottom: 1.5rem; text-align: center; }
+    .block-body-dark   { font-size: 1.15rem; color: var(--slate); line-height: 1.5; text-align: left; margin-bottom: 2rem; }
+    .block-body-light  { font-size: 1.15rem; color: rgba(214,228,245,0.85); line-height: 1.5; text-align: left; margin-bottom: 2rem; }
 
-    footer { background: var(--ink); padding: 2rem 3rem; text-align: center; margin-top: 4rem; }
+    .block-content { max-width: 760px; margin: 0 auto; }
+    .block-cta { text-align: left; }
+    .block-cta a { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+    .block-cta.dark a { color: var(--horizon); }
+    .block-cta.light a { color: var(--mist); }
+    .block-cta a:hover { text-decoration: underline; }
+
+    .audience-body { font-size: 1.15rem; color: var(--slate); line-height: 1.7; text-align: left; }
+    .audience-body p { margin-bottom: 1.25rem; }
+    .audience-body p:last-child { margin-bottom: 0; }
+
+    .steps-list { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+    .step-item { display: flex; gap: 1.25rem; align-items: flex-start; }
+    .step-num-dark  { width: 40px; height: 40px; border-radius: 50%; background: var(--ocean); color: var(--mist); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-num-light { width: 40px; height: 40px; border-radius: 50%; background: var(--mist);  color: var(--ocean); font-size: 15px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-item h3 { font-size: 1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; }
+    .step-item-dark  h3 { color: var(--ocean); }
+    .step-item-light h3 { color: var(--mist); }
+    .step-item-dark  p { font-size: 1.15rem; color: var(--slate); line-height: 1.5; }
+    .step-item-light p { font-size: 1.15rem; color: rgba(214,228,245,0.85); line-height: 1.5; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 2rem; text-align: left; }
+    .faq-item h3 { font-size: 1rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ocean); margin-bottom: 6px; }
+    .faq-item p { font-size: 1.15rem; color: var(--slate); line-height: 1.5; }
+    .faq-item a { color: var(--horizon); text-decoration: none; }
+    .faq-item a:hover { text-decoration: underline; }
+
+    .cta-band { background: var(--ocean); padding: 0 10rem; }
+    .cta-inner { background: var(--white); padding: 5rem 4rem; text-align: center; }
+    .cta-band h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; color: var(--ocean); margin-bottom: 0.75rem; }
+    .cta-tagline { font-size: 1.3rem; color: var(--horizon); font-style: italic; margin-bottom: 1.25rem; letter-spacing: 0.04em; }
+    .cta-band p { font-size: 1.05rem; color: var(--slate); margin-bottom: 2.5rem; }
+
+    footer { background: var(--ink); padding: 2.5rem 3rem; text-align: center; }
+    .footer-brand { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .footer-tagline { font-size: 13px; color: var(--mist); font-style: italic; margin-bottom: 8px; }
     .footer-sub { font-size: 13px; color: var(--stone); }
     .footer-sub a { color: var(--mist); text-decoration: none; }
     .footer-sub a:hover { text-decoration: underline; }
 
-    @media (max-width: 700px) {
-      nav { padding: 0 1.25rem; }
-      .page-header { padding: 2rem 1.25rem; }
-      main { padding: 1.5rem 1.25rem 4rem; }
-      .card { padding: 1.5rem; }
+    @media (max-width: 900px) {
+      .frame-ocean, .frame-fog, .cta-band { padding: 0 2rem; }
+      .box-white, .box-ocean, .cta-inner { padding: 3.5rem 2rem; }
+      nav { padding: 0 1.5rem; }
+      .hero { padding: 4rem 1.5rem; }
     }
   </style>
 </head>
@@ -84,81 +119,172 @@
       <span class="brand-sub">Stronger copy. Deeper impact.</span>
     </div>
   </a>
-  <a class="nav-link" href="https://plainspeakingcomms.com" target="_blank">Back to PSC</a>
+  <a class="nav-cta" href="donor-appeal.html">Try a diagnostic →</a>
 </nav>
 
-<div class="page-header">
-  <div class="page-eyebrow">Free Tools for Nonprofit Communicators</div>
-  <h1>Mission Momentum</h1>
-  <p>Paste your copy. Get scored feedback, flagged issues with nonprofit benchmarks, and targeted rewrites for your weakest sections. No login required.</p>
+<section class="hero">
+  <div class="hero-eyebrow">Built for nonprofit communicators without a marketing team</div>
+  <h1>Your copy is doing less than<br><em>it could be.</em></h1>
+  <div class="hero-tagline">Stronger copy. Deeper impact.</div>
+  <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(214,228,245,0.12);border:1px solid rgba(214,228,245,0.25);border-radius:99px;padding:6px 16px;margin:1rem 0;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#D6E4F5"><path d="M12 2 L13.5 9.5 L21 8 L15 13 L18 21 L12 16.5 L6 21 L9 13 L3 8 L10.5 9.5 Z"/></svg>
+    <span style="font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mist);text-transform:uppercase;">AI powered by Claude</span>
+  </div>
+  <p class="hero-sub">Most nonprofit copy loses donors for reasons nobody can quite name. Mission Momentum finds them: a score across six categories, issues flagged against what strong nonprofit communications actually do, and rewrites for your two weakest sections.</p>
+  <div class="hero-actions">
+    <a class="btn-launch" href="donor-appeal.html">Try a diagnostic →</a>
+    <a class="btn-ghost" href="#features">See how it works</a>
+  </div>
+</section>
+
+<div class="frame-ocean" id="features">
+  <div class="box-white">
+    <div class="block-content">
+      <div class="block-label-dark">Diagnostic 1 of 5</div>
+      <h2 class="block-title-dark">Donor appeal emails that lead with impact, not need.</h2>
+      <p class="block-body-dark">Paste your appeal and get scored on donor-centered language, clarity of the ask, emotional connection, urgency, storytelling, and call to action. Flagged issues reference your actual language, not generic advice.</p>
+      <div class="block-cta dark"><a href="donor-appeal.html">Try the donor appeal diagnostic →</a></div>
+    </div>
+  </div>
 </div>
 
-<main>
-
-  <div class="card">
-    <div class="card-label">Setup</div>
-    <label class="field-hint" style="display:block;margin-bottom:6px;font-weight:700;text-transform:uppercase;font-size:13px;letter-spacing:0.06em;color:var(--ocean);">Anthropic API Key <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone);">(required — powers all five diagnostics below)</span></label>
-    <input id="apiKey" type="password" placeholder="sk-ant-..." />
-    <div class="field-hint">🔒 Stored only in your browser. Never sent anywhere except Anthropic. <a href="https://console.anthropic.com" target="_blank">Get a key →</a></div>
-    <div class="key-status saved" id="keyStatus">✓ Key saved — you're ready to use any diagnostic below</div>
+<div class="frame-fog">
+  <div class="box-ocean">
+    <div class="block-content">
+      <div class="block-label-light">Diagnostic 2 of 5</div>
+      <h2 class="block-title-light">Thank-you letters that make donors feel seen.</h2>
+      <p class="block-body-light">A thank-you that just says "thanks" is a missed chance to deepen the relationship. Get feedback on whether your letter connects the gift to real impact, or reads like a receipt.</p>
+      <div class="block-cta light"><a href="thank-you.html">Try the thank-you letter diagnostic →</a></div>
+    </div>
   </div>
+</div>
 
-  <div class="tools-grid">
-    <a class="tool-card" href="donor-appeal.html">
-      <div class="tool-number">Diagnostic 1 of 5</div>
-      <h3>Donor Appeal Email</h3>
-      <p>Score your donor appeal across six categories, with flagged issues and rewrites for your two weakest sections.</p>
-    </a>
-    <a class="tool-card" href="thank-you.html">
-      <div class="tool-number">Diagnostic 2 of 5</div>
-      <h3>Thank-You Letter</h3>
-      <p>Make sure your thank-you letters make donors feel seen and connected to real impact, not just thanked.</p>
-    </a>
-    <a class="tool-card" href="lapsed-donor.html">
-      <div class="tool-number">Diagnostic 3 of 5</div>
-      <h3>Lapsed Donor Re-Engagement</h3>
-      <p>Diagnose your win-back email or letter and get targeted rewrites to bring lapsed donors back.</p>
-    </a>
-    <a class="tool-card" href="positioning.html">
-      <div class="tool-number">Diagnostic 4 of 5</div>
-      <h3>Positioning &amp; Messaging</h3>
-      <p>Evaluate your about page, mission statement, elevator pitch, or homepage headline.</p>
-    </a>
-    <a class="tool-card full" href="newsletter.html">
-      <div class="tool-number">Diagnostic 5 of 5</div>
-      <h3>Newsletter &amp; Impact Report</h3>
-      <p>Check whether your newsletter or impact report leads with stories and outcomes, or gets buried in activity and jargon.</p>
-    </a>
+<div class="frame-ocean">
+  <div class="box-white">
+    <div class="block-content">
+      <div class="block-label-dark">Diagnostic 3 of 5</div>
+      <h2 class="block-title-dark">Win back lapsed donors before they're gone for good.</h2>
+      <p class="block-body-dark">Paste your re-engagement email or letter and get a diagnosis built for the specific challenge of winning back someone who's already drifted away, plus targeted rewrites for your weakest sections.</p>
+      <div class="block-cta dark"><a href="lapsed-donor.html">Try the lapsed donor diagnostic →</a></div>
+    </div>
   </div>
+</div>
 
-</main>
+<div class="frame-fog">
+  <div class="box-ocean">
+    <div class="block-content">
+      <div class="block-label-light">Diagnostic 4 of 5</div>
+      <h2 class="block-title-light">Positioning that says what you do in one read.</h2>
+      <p class="block-body-light">Paste your about page, mission statement, elevator pitch, or homepage headline. Find out whether it's clear, differentiated, and memorable, or blending into every other nonprofit's copy.</p>
+      <div class="block-cta light"><a href="positioning.html">Try the positioning diagnostic →</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="frame-ocean">
+  <div class="box-white">
+    <div class="block-content">
+      <div class="block-label-dark">Diagnostic 5 of 5</div>
+      <h2 class="block-title-dark">Newsletters and impact reports that lead with stories.</h2>
+      <p class="block-body-dark">Check whether your newsletter or impact report opens with outcomes and real stories, or gets buried in activity updates and internal jargon before anyone gets to why it matters.</p>
+      <div class="block-cta dark"><a href="newsletter.html">Try the newsletter diagnostic →</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="frame-fog">
+  <div class="box-ocean">
+    <div class="block-content">
+      <div class="block-label-light">Who it's for</div>
+      <h2 class="block-title-light">Built for nonprofit communicators without a marketing team behind them.</h2>
+      <div class="audience-body" style="color: rgba(214,228,245,0.85);">
+        <p>Mission Momentum is for anyone who has to write donor-facing copy without a communications department backing them up.</p>
+        <p>That's the one-person development shop drafting a year-end appeal alone. The executive director writing the newsletter between board meetings. The fundraising consultant who needs a second pair of eyes before copy goes out the door.</p>
+        <p>What they have in common: they're writing copy that has to work, without the luxury of a full review process.</p>
+        <p>Mission Momentum scores your copy against what strong nonprofit communications actually do, flags what isn't working, and rewrites your weakest sections so you're not starting from a blank page.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="frame-ocean">
+  <div class="box-white">
+    <div class="block-content">
+      <div class="block-label-dark">How it works</div>
+      <h2 class="block-title-dark">Takes about two minutes to set up. Nothing to install.</h2>
+      <p class="block-body-dark">Mission Momentum runs in your browser and calls Anthropic's API directly with your own key. Nothing is stored on our servers, and unlike some of our other tools, there's no Google Sheet or script to set up.</p>
+      <div class="steps-list">
+        <div class="step-item step-item-dark">
+          <div class="step-num-dark">1</div>
+          <div><h3>Get an API key</h3><p>Go to console.anthropic.com and create a key. New accounts include $5 in trial credits. Follow the full setup guide: <a href="setup.html" style="color:var(--horizon);text-decoration:underline;">Mac</a> or <a href="setup-windows.html" style="color:var(--horizon);text-decoration:underline;">Windows</a>.</p></div>
+        </div>
+        <div class="step-item step-item-dark">
+          <div class="step-num-dark">2</div>
+          <div><h3>Paste it in</h3><p>Paste your key into any diagnostic once. It's stored only in your browser and works across all five tools automatically.</p></div>
+        </div>
+        <div class="step-item step-item-dark">
+          <div class="step-num-dark">3</div>
+          <div><h3>Start diagnosing</h3><p>Paste your copy into any diagnostic and get scored feedback, flagged issues, and rewrites in under a minute.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="frame-fog" id="faq">
+  <div class="box-ocean">
+    <div class="block-content">
+      <div class="block-label-light">FAQ</div>
+      <h2 class="block-title-light">Common questions.</h2>
+      <div class="faq-list" style="color: rgba(214,228,245,0.85);">
+
+        <div class="faq-item">
+          <h3 style="color:#fff;">Does Mission Momentum cost anything?</h3>
+          <p style="color: rgba(214,228,245,0.85);">The tools themselves have no subscription, no account, and no data stored on our servers. AI analysis is billed per use directly by Anthropic through your own API key. For occasional use, costs are typically a few cents per diagnostic.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 style="color:#fff;">Do I need an API key?</h3>
+          <p style="color: rgba(214,228,245,0.85);">Yes. Every diagnostic runs through Claude, so an Anthropic API key is required to use any of the five tools. There's no free-tier option without one.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 style="color:#fff;">Do I need a Google account or spreadsheet?</h3>
+          <p style="color: rgba(214,228,245,0.85);">No. Unlike Network Momentum, Mission Momentum doesn't store anything, so there's no Google Sheet or Apps Script to set up. Just an API key.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 style="color:#fff;">Which AI provider does Mission Momentum use?</h3>
+          <p style="color: rgba(214,228,245,0.85);">Mission Momentum is built on Anthropic's Claude. It doesn't currently support other AI providers.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3 style="color:#fff;">Is my data private?</h3>
+          <p style="color: rgba(214,228,245,0.85);">Yes. Your copy is sent directly from your browser to Anthropic using your own API key when you run a diagnostic. Nothing passes through or is stored on our servers, and nothing is saved after you close the tab.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <div class="cta-inner">
+    <h2>Takes about two minutes to set up. Nothing to install.</h2>
+    <p>No account required. No data stored on our servers. AI analysis uses your own API key, billed per use by Anthropic. No Google Sheet or script needed.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;align-items:center;">
+      <a class="btn-launch" href="setup.html">Set up on Mac →</a>
+      <a class="btn-launch" href="setup-windows.html" style="background:var(--horizon);">Set up on Windows →</a>
+    </div>
+    <p style="font-size:13px;color:var(--stone);margin-top:1rem;">Already set up? <a href="donor-appeal.html" style="color:var(--horizon);">Try a diagnostic →</a></p>
+  </div>
+</div>
 
 <footer>
-  <div class="footer-sub">Built by <a href="https://plainspeakingcomms.com" target="_blank">Plain Speaking Communications</a> &nbsp;·&nbsp; AI powered by <a href="https://anthropic.com" target="_blank">Claude</a> &nbsp;·&nbsp; Free to use</div>
+  <div class="footer-brand">Mission Momentum</div>
+  <div class="footer-tagline">Stronger copy. Deeper impact.</div>
+  <div class="footer-sub">Mission Momentum is part of the <a href="https://plainspeakingcomms.com/psc-tools" target="_blank">PSC Tools</a> suite &nbsp;·&nbsp; AI powered by <a href="https://anthropic.com" target="_blank">Claude</a> &nbsp;·&nbsp; Your API key stays in your browser</div>
 </footer>
-
-<script>
-  const KEY = 'mm_api_key';
-
-  window.addEventListener('load', function() {
-    const saved = localStorage.getItem(KEY);
-    if (saved) {
-      document.getElementById('apiKey').value = saved;
-      document.getElementById('keyStatus').classList.add('show');
-    }
-  });
-
-  document.getElementById('apiKey').addEventListener('input', function() {
-    const val = this.value.trim();
-    const status = document.getElementById('keyStatus');
-    if (val.startsWith('sk-ant-')) {
-      localStorage.setItem(KEY, val);
-      status.classList.add('show');
-    } else {
-      status.classList.remove('show');
-    }
-  });
-</script>
 
 </body>
 </html>
