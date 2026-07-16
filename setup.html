@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setup Guide (Mac) — Mission Momentum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ocean: #002366; --ocean-mid: #002d7a;
+      --horizon: #3A6DB5; --horizon-mid: #4d7dc0;
+      --mist: #D6E4F5; --fog: #F0F4F9;
+      --ink: #1A1F2E; --slate: #4A5568; --stone: #8A9BB0;
+      --white: #FFFFFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Josefin Sans', sans-serif; background: var(--fog); color: var(--ink); font-size: 18px; line-height: 1.5; }
+
+    nav { background: var(--ocean); border-bottom: 2px solid var(--horizon); padding: 0 3rem; height: 72px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { display: flex; align-items: center; gap: 12px; color: #fff; font-size: 18px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; }
+    .nav-brand .brand-sub { font-size: 10px; font-weight: 400; color: var(--mist); letter-spacing: 0.1em; text-transform: uppercase; display: block; line-height: 1; margin-top: 3px; }
+    .nav-back { color: var(--mist); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .nav-back:hover { color: var(--white); }
+
+    .page-header { background: var(--ocean); padding: 3rem 3rem 2.5rem; }
+    .page-header-inner { max-width: 820px; margin: 0 auto; }
+    .page-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mist); margin-bottom: 0.75rem; opacity: 0.7; }
+    .page-header h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1.1rem; color: rgba(214,228,245,0.8); max-width: 620px; }
+
+    main { max-width: 820px; margin: 0 auto; padding: 2.5rem 3rem 5rem; }
+
+    .card { background: var(--white); border-radius: 8px; padding: 2rem 2.5rem; margin-bottom: 1.5rem; border: 1px solid var(--mist); }
+    .card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--horizon); margin-bottom: 1rem; }
+    .card h2 { font-size: 1.4rem; font-weight: 700; color: var(--ocean); margin-bottom: 0.75rem; }
+    .card p { font-size: 15px; color: var(--slate); margin-bottom: 0.75rem; }
+    .card p:last-child { margin-bottom: 0; }
+    .card ol, .card ul { margin: 0.75rem 0 0.75rem 1.25rem; }
+    .card li { font-size: 15px; color: var(--slate); margin-bottom: 0.5rem; }
+    .card strong { color: var(--ink); }
+    .card a { color: var(--horizon); }
+
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ocean); color: var(--white); font-size: 13px; font-weight: 700; margin-right: 10px; flex-shrink: 0; }
+    .step-title { display: flex; align-items: center; margin-bottom: 0.5rem; }
+    .step-title h2 { margin-bottom: 0; font-size: 1.2rem; }
+
+    .note { background: var(--fog); border-left: 3px solid var(--horizon); padding: 0.9rem 1.1rem; font-size: 14px; color: var(--slate); border-radius: 0 4px 4px 0; margin: 1rem 0; }
+    .note strong { color: var(--ocean); }
+
+    code { background: var(--fog); border: 1px solid var(--mist); border-radius: 3px; padding: 2px 6px; font-size: 14px; color: var(--ocean); font-family: Menlo, Consolas, monospace; }
+
+    .cta-band { background: var(--ocean); padding: 2.5rem 3rem; text-align: center; }
+    .cta-band h2 { color: var(--white); font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .cta-band p { color: rgba(214,228,245,0.85); margin-bottom: 1.25rem; font-size: 15px; }
+    .btn-launch { background: var(--horizon); color: #fff; border: none; border-radius: 6px; padding: 14px 32px; font-size: 14px; font-family: inherit; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: background 0.15s; }
+    .btn-launch:hover { background: var(--horizon-mid); }
+
+    footer { text-align: center; padding: 2rem; font-size: 13px; color: var(--stone); }
+    footer a { color: var(--horizon); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Mission Momentum<span class="brand-sub">Stronger Copy. Deeper Impact.</span></a>
+  <a href="index.html" class="nav-back">← Back to Mission Momentum</a>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="page-eyebrow">Setup Guide · Mac</div>
+    <h1>Get set up on Mac</h1>
+    <p>Three steps, about five minutes, nothing to install. You'll need an Anthropic API key and a Mac web browser (Chrome, Safari, or Firefox all work).</p>
+  </div>
+</div>
+
+<main>
+
+  <div class="card">
+    <div class="step-title"><span class="step-num">1</span><h2>Get an Anthropic API key</h2></div>
+    <p>Mission Momentum runs entirely in your browser and calls Anthropic's API directly with your own key — there's no Mission Momentum account to create.</p>
+    <ol>
+      <li>Go to <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> and sign up, or log in if you already have an account.</li>
+      <li>Once signed in, go to <strong>Settings → API Keys</strong> (or the "API Keys" link in the left sidebar).</li>
+      <li>Click <strong>Create Key</strong>, give it a name (e.g. "Mission Momentum"), and click <strong>Create</strong>.</li>
+      <li>Copy the key that appears. It starts with <code>sk-ant-</code>. This is the only time the full key is shown, so copy it now.</li>
+    </ol>
+    <div class="note"><strong>Note:</strong> New Anthropic accounts typically include a small amount of free trial credit, but exact amounts and terms can change — check <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> for current details. After any trial credit is used, diagnostics are billed per use, typically a few cents each.</div>
+  </div>
+
+  <div class="card">
+    <div class="step-title"><span class="step-num">2</span><h2>Save your key in Mission Momentum</h2></div>
+    <p>You only need to do this once — it works across all five diagnostics automatically.</p>
+    <ol>
+      <li>Go to <a href="index.html">missionmomentum.app</a>.</li>
+      <li>Scroll to the <strong>"How it works"</strong> section and find the box labeled <strong>"Your Anthropic API key."</strong></li>
+      <li>Paste your key (⌘+V) into the field and click <strong>Save key</strong>.</li>
+    </ol>
+    <p>Your key is stored only in your Mac's browser storage for that browser. It's never sent to Plain Speaking Communications or stored on any server — only to Anthropic, directly from your browser, when you run a diagnostic.</p>
+  </div>
+
+  <div class="card">
+    <div class="step-title"><span class="step-num">3</span><h2>Run your first diagnostic</h2></div>
+    <p>Pick whichever tool matches what you're working on:</p>
+    <ul>
+      <li><strong>Donor Appeal</strong> — for fundraising emails and appeal letters</li>
+      <li><strong>Thank-You Letter</strong> — for donor acknowledgment and stewardship copy</li>
+      <li><strong>Lapsed Donor</strong> — for win-back and re-engagement messages</li>
+      <li><strong>Positioning</strong> — for mission statements, about pages, and elevator pitches</li>
+      <li><strong>Newsletter</strong> — for newsletters and impact reports</li>
+    </ul>
+    <p>Paste your copy into the tool, fill in any optional context, and click the button to run the diagnostic. You'll get a score across six categories, flagged issues tied to your actual wording, and rewrites for your two weakest sections — usually in under a minute.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Troubleshooting</div>
+    <p><strong>"No API key found" banner won't go away.</strong> Go back to <a href="index.html">missionmomentum.app</a>, re-paste your key into the "Your Anthropic API key" box, and click Save key again. Each browser stores its own copy, so if you switch browsers or use a private/incognito window, you'll need to save the key there too.</p>
+    <p><strong>Diagnostic returns an error.</strong> Double-check your key starts with <code>sk-ant-</code> and that it was copied in full. If it looks right, check your usage and billing status at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> — a diagnostic will fail if trial credit has run out and no billing method is on file.</p>
+    <p><strong>Key stopped working after a browser update or cleanup.</strong> Browser storage can be cleared by cache-clearing tools or privacy settings. If that happens, just repeat Step 2 to save your key again.</p>
+  </div>
+
+</main>
+
+<div class="cta-band">
+  <h2>Ready to go</h2>
+  <p>Head back and save your key to start diagnosing your copy.</p>
+  <a class="btn-launch" href="index.html">Back to Mission Momentum →</a>
+</div>
+
+<footer>
+  Need help? <a href="mailto:rebeca@plainspeakingcomms.com">rebeca@plainspeakingcomms.com</a><br />
+  Plain Speaking Communications · <a href="https://plainspeakingcomms.com">plainspeakingcomms.com</a> · missionmomentum.app
+</footer>
+
+</body>
+</html>
