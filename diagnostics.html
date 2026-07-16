@@ -308,6 +308,7 @@ function renderTabBar() {
 
 function switchTool(id) {
   activeTool = id;
+  history.replaceState(null, '', '#' + id);
   renderTabBar();
   renderPage();
 }
@@ -526,6 +527,8 @@ function copySubject(btn) {
   });
 }
 
+const initialHash = window.location.hash.slice(1);
+if (TOOLS.some(t => t.id === initialHash)) activeTool = initialHash;
 renderTabBar();
 renderPage();
 </script>
