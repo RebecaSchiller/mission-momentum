@@ -165,7 +165,7 @@ const TOOLS = [
     sub: "Paste your donor appeal below. You'll get a score across six categories, flagged issues, and targeted rewrites for your two weakest sections.",
     contextLabel: 'Campaign context (optional)',
     contextPlaceholder: 'e.g. End-of-year appeal for a food bank, goal of $50k, mid-level donors',
-    copyHint: 'Paste the full text of your appeal. Subject line and P.S. included if you have them.',
+    copyHint: 'Paste the full text of your appeal. P.S. included if you have it.',
     copyPlaceholder: 'Paste your donor appeal here...',
     hasSubjectLine: true,
     categories: ['Donor-centered language', 'Clarity of the ask', 'Emotional connection and storytelling', 'Urgency and specificity', 'Call to action effectiveness', 'Overall readability'],
@@ -209,7 +209,7 @@ Be honest and specific. Reference actual language from the copy. A good thank-yo
     sub: "Paste your re-engagement email or letter and get a diagnosis built for winning back someone who's already drifted away.",
     contextLabel: 'Lapsed donor context (optional)',
     contextPlaceholder: 'e.g. Donors lapsed 18+ months, last gift average $100, mid-size environmental nonprofit',
-    copyHint: 'Paste the full text of your win-back email or letter. Subject line included if you have it.',
+    copyHint: 'Paste the full text of your win-back email or letter.',
     copyPlaceholder: 'Paste your lapsed donor re-engagement copy here...',
     hasSubjectLine: true,
     categories: ['Acknowledgment of the lapse', 'Tone: welcoming vs. guilt-inducing', 'Relevance of the renewed ask', 'What has changed or improved', 'Specificity of impact', 'Overall readability'],
@@ -283,7 +283,7 @@ const ROLES = [
 
 const state = {};
 TOOLS.forEach(t => {
-  state[t.id] = { role: 'marketing', type: 'newsletter', context: '', copy: '', results: null, error: null, loading: false };
+  state[t.id] = { role: 'marketing', type: 'newsletter', context: '', copy: '', subjectLine: '', results: null, error: null, loading: false };
 });
 
 let activeTool = 'donor';
@@ -343,6 +343,10 @@ function renderPage() {
       <div class="field-label">${tool.contextLabel}</div>
       <input type="text" id="contextInput" placeholder="${tool.contextPlaceholder}" value="${s.context.replace(/"/g, '&quot;')}" oninput="state['${tool.id}'].context = this.value" />
 
+      ${tool.hasSubjectLine ? `
+        <div class="field-label">Email subject line <span style="color:#e05c5c;">*</span></div>
+        <input type="text" id="subjectLineInput" placeholder="e.g. You changed everything for Maria this year" value="${s.subjectLine.replace(/\"/g, '&quot;')}" oninput="state['${tool.id}'].subjectLine = this.value" />
+      ` : ''}
       <div class="field-label">Your copy</div>
       <p class="field-hint">${tool.copyHint}</p>
       <textarea id="copyInput" rows="14" placeholder="${tool.copyPlaceholder}" oninput="state['${tool.id}'].copy = this.value">${s.copy}</textarea>
@@ -354,7 +358,7 @@ function renderPage() {
     </div>
 
     <div class="results-section ${s.results ? 'visible' : ''}" id="resultsSection">
-      ${s.results ? renderResultsHTML(tool, s.results) : ''}
+      ${s.results ? renderResultsHTML(tool, s.results, s.subjectLine) : ''}
     </div>
   `;
 }
@@ -386,6 +390,11 @@ async function runDiagnostic() {
     renderPage();
     return;
   }
+  if (tool.hasSubjectLine && (!s.subjectLine || !s.subjectLine.trim())) {
+    s.error = 'Add an email subject line first \u2014 it is required for this diagnostic.';
+    renderPage();
+    return;
+  }
 
   s.loading = true;
   s.error = null;
@@ -394,7 +403,7 @@ async function runDiagnostic() {
   let prompt = tool.buildPrompt(roleLabel(s.role), s.context, s.copy, s.type);
 
   const subjectLineInstruction = tool.hasSubjectLine
-    ? `\n\nAlso suggest 3 compelling, non-generic email subject lines this could be sent under, tailored to the tone and content of the copy above. Include them as "subject_lines" in the JSON below.`
+    ? `\n\nAlso separately evaluate this email subject line (do not factor it into the overall score or the six categories above): "${s.subjectLine}"\n\nScore it 0-100 on how likely it is to get opened, explain why in one sentence, and suggest one improved rewrite likely to increase open rates. Include this as "subject_line" in the JSON below with keys "score", "note", and "rewrite".`
     : '';
 
   const schema = `
@@ -418,7 +427,7 @@ Respond ONLY in valid JSON with this structure:
   "strengths": [
     "<something the copy does well, specific>",
     "<something the copy does well, specific>"
-  ]${tool.hasSubjectLine ? ',\n  "subject_lines": ["<option 1>", "<option 2>", "<option 3>"]' : ''}
+  ]${tool.hasSubjectLine ? ',\n  "subject_line": { "score": <0-100>, "note": "<one sentence explanation>", "rewrite": "<improved subject line>" }' : ''}
 }
 
 Return only valid JSON, no markdown fences.`;
@@ -457,7 +466,7 @@ Return only valid JSON, no markdown fences.`;
   }
 }
 
-function renderResultsHTML(tool, r) {
+function renderResultsHTML(tool, r, subjectLine) {
   const overallCls = scoreClass(r.overall_score);
   const bandColor = overallCls === 'weak' ? '#9b2020' : overallCls === 'mid' ? '#a06010' : 'var(--horizon)';
   const label = r.overall_score >= 70 ? 'Strong' : r.overall_score >= 45 ? 'Needs work' : 'Significant gaps';
@@ -482,13 +491,25 @@ function renderResultsHTML(tool, r) {
 
   const strengthsHTML = r.strengths.map(s => `<div class="flag-item"><div class="flag-dot" style="background:#3ab87a"></div><div class="flag-text">${s}</div></div>`).join('');
 
-  const subjectHTML = (tool.hasSubjectLine && r.subject_lines) ? `
-    <div class="section-heading">Suggested email subject lines</div>
-    ${r.subject_lines.map(sub => `
-      <div class="subject-block">
-        <div class="subject-text">${sub}</div>
-        <button class="btn-copy-subject" onclick="copySubject(this)" data-subject="${sub.replace(/"/g, '&quot;')}">Copy</button>
-      </div>`).join('')}
+  const subjectLineHTML = (tool.hasSubjectLine && r.subject_line) ? `
+    <div class="card" style="border-left:4px solid var(--horizon);">
+      <div class="section-heading">Email subject line <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--stone);font-size:12px;">(scored separately, not part of the diagnostic above)</span></div>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;">
+        <div style="font-size:2rem;font-weight:700;color:var(--horizon);line-height:1;">${r.subject_line.score}<span style="font-size:1rem;color:var(--stone);font-weight:400;">/100</span></div>
+        <div style="font-size:0.95rem;color:var(--slate);">${r.subject_line.note}</div>
+      </div>
+      <div class="rewrite-block">
+        <div class="rewrite-label before">Your subject line</div>
+        <div class="rewrite-text">${subjectLine}</div>
+        <hr class="rewrite-divider">
+        <div class="rewrite-label after">Suggested rewrite</div>
+        <div class="rewrite-text">${r.subject_line.rewrite}</div>
+      </div>
+      <div class="subject-block" style="margin-top:1rem;">
+        <div class="subject-text">${r.subject_line.rewrite}</div>
+        <button class="btn-copy-subject" onclick="copySubject(this)" data-subject="${r.subject_line.rewrite.replace(/"/g, '&quot;')}">Copy</button>
+      </div>
+    </div>
   ` : '';
 
   return `
@@ -509,7 +530,7 @@ function renderResultsHTML(tool, r) {
       <div class="section-heading">Suggested rewrites</div>
       ${rewritesHTML}
     </div>
-    ${subjectHTML ? `<div class="card">${subjectHTML}</div>` : ''}
+    ${subjectLineHTML}
     <div class="card">
       <div class="section-heading">What's working</div>
       ${strengthsHTML}
