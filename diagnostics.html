@@ -336,7 +336,7 @@ function renderPage() {
 
   const main = document.getElementById('main');
   main.innerHTML = `
-    ${!apiKey ? `<div class="api-warning" style="display:block;">No API key found. <a href="index.html#api-key-setup">Go back to set up your key</a> before running a diagnostic.</div>` : ''}
+    ${!apiKey ? `<div class="api-warning" style="display:block;">No API key found. <a href="setup.html#api-key-setup">Go back to set up your key</a> before running a diagnostic.</div>` : ''}
     <div class="card">
       <div class="card-label">Your role</div>
       <div class="role-row">
