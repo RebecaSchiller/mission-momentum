@@ -2,8 +2,7 @@ const CACHE_NAME = 'mission-momentum-v1';
 const URLS_TO_CACHE = [
   '/diagnostics.html',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png'
+  '/icon-192.png'
 ];
 
 self.addEventListener('install', function(event) {
