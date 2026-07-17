@@ -1,0 +1,36 @@
+{
+  "name": "Mission Momentum",
+  "short_name": "Mission Momentum",
+  "description": "AI-powered copy diagnostics for nonprofit communicators. Paste your copy, get a score, flagged issues, and rewrites.",
+  "start_url": "/diagnostics.html",
+  "display": "standalone",
+  "background_color": "#002366",
+  "theme_color": "#002366",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
