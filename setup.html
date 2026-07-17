@@ -133,11 +133,41 @@
 
 </main>
 
+<div class="card" id="api-key-setup">
+  <div class="card-label">Save your API key</div>
+  <p>Paste your Anthropic API key below and click Save. It's stored only in this browser (localStorage), never sent anywhere except directly to Anthropic when you run a diagnostic.</p>
+  <input type="password" id="mmApiKeyInput" placeholder="sk-ant-..." style="width:100%;padding:12px 14px;border:1px solid var(--mist);border-radius:8px;font-family:inherit;font-size:15px;margin:0.75rem 0;color:var(--ink);" />
+  <button onclick="saveMmApiKey()" class="btn-launch" style="border:none;">Save key</button>
+  <p id="mmKeyStatus" style="margin-top:0.75rem;font-size:14px;"></p>
+</div>
+
 <div class="cta-band">
   <h2>Ready to go</h2>
-  <p>Head back and save your key to start diagnosing your copy.</p>
-  <a class="btn-launch" href="index.html">Back to Mission Momentum →</a>
+  <p>Save your key above, then run your first diagnostic.</p>
+  <a class="btn-launch" href="diagnostics.html">Run a diagnostic →</a>
 </div>
+
+<script>
+  function saveMmApiKey() {
+    const input = document.getElementById('mmApiKeyInput');
+    const status = document.getElementById('mmKeyStatus');
+    const val = input.value.trim();
+    if (!val) {
+      status.textContent = 'Please paste a key first.';
+      status.style.color = '#c0392b';
+      return;
+    }
+    localStorage.setItem('mm_api_key', val);
+    if (val.indexOf('sk-ant-') !== 0) {
+      status.textContent = "Saved, but that doesn't look like an Anthropic key (should start with sk-ant-). Double-check it.";
+      status.style.color = '#c0392b';
+    } else {
+      status.textContent = 'Key saved in this browser. You can now run diagnostics.';
+      status.style.color = '#1a7f4e';
+    }
+    input.value = '';
+  }
+</script>
 
 <footer>
   Need help? <a href="mailto:rebeca@plainspeakingcomms.com">rebeca@plainspeakingcomms.com</a><br />
