@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon-192.png" />
+  <link rel="apple-touch-icon" href="/icon-192.png" />
+  <meta name="theme-color" content="#002366" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Mission Momentum" />
   <!-- Google Analytics GA4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-35G9M8322M"></script>
   <script>
@@ -563,6 +570,17 @@ const initialHash = window.location.hash.slice(1);
 if (TOOLS.some(t => t.id === initialHash)) activeTool = initialHash;
 renderTabBar();
 renderPage();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(reg) {
+      console.log('Service worker registered:', reg.scope);
+    }).catch(function(err) {
+      console.log('Service worker registration failed:', err);
+    });
+  });
+}
 </script>
 </body>
 </html>
