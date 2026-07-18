@@ -1,8 +1,10 @@
 {
+  "id": "/diagnostics.html",
   "name": "Mission Momentum",
   "short_name": "Mission Momentum",
   "description": "AI-powered copy diagnostics for nonprofit communicators. Paste your copy, get a score, flagged issues, and rewrites.",
   "start_url": "/diagnostics.html",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#002366",
   "theme_color": "#002366",
